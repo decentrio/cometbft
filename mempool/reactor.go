@@ -156,6 +156,7 @@ func (memR *Reactor) Receive(e p2p.Envelope) {
 		for _, tx := range protoTxs {
 			ntx := types.Tx(tx)
 			err = memR.mempool.CheckTx(ntx, nil, txInfo)
+			fmt.Println("mempool check tx", tx, err)
 			if err != nil {
 				switch {
 				case errors.Is(err, ErrTxInCache):
