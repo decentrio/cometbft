@@ -3,9 +3,8 @@ package mempool
 import (
 	"context"
 	"errors"
-	"time"
-
 	"fmt"
+	"time"
 
 	cfg "github.com/cometbft/cometbft/config"
 	"github.com/cometbft/cometbft/libs/clist"
@@ -139,6 +138,8 @@ func (memR *Reactor) RemovePeer(peer p2p.Peer, _ interface{}) {
 // It adds any received transactions to the mempool.
 func (memR *Reactor) Receive(e p2p.Envelope) {
 	memR.Logger.Debug("Receive", "src", e.Src, "chId", e.ChannelID, "msg", e.Message)
+	fmt.Println("Cometbft src id", e.Src.ID() )
+	fmt.Println("Cometbft src node", e.Src.NodeInfo() )
 	switch msg := e.Message.(type) {
 	case *protomem.Txs:
 		protoTxs := msg.GetTxs()
